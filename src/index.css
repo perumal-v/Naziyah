@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+@media (prefers-color-scheme: dark) {
+    
+}
+*{
+    font-family: serif;
+    font-weight: 500;
+}
+
+:root {
+    --primary:#ffffff;
+}
+
+:root {
+  --primary: #ffffff; /* your blue color */
+}
+
+.bg-primary {
+  background-color:white ;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
