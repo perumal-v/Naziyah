@@ -21,8 +21,8 @@ export default function Services() {
   ]
 
   return (
-    <div className="min-h-fit bg-gray-900 px-4 sm:px-6 lg:px-16 py-16">
-      <h2 className="text-4xl font-bold text-center text-[#F9AA33] mb-12">
+    <div className="min-h-fit bg-[var(--bg-primary)] px-4 sm:px-6 lg:px-16 py-16">
+      <h2 className="text-4xl font-bold text-center text-[var(--accent)] mb-12">
 
         Services
       </h2>
@@ -32,12 +32,12 @@ export default function Services() {
         {missions.map((mission, index) => (
           <div
             key={index}
-            className="bg-[#344955] text-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition duration-300 transform hover:scale-[1.02]"
+            className="bg-[var(--bg-secondary)] text-[var(--text-primary)] rounded-2xl shadow-lg p-6 hover:shadow-xl transition duration-300 transform hover:scale-[1.02]"
           >
-            <h3 className="text-2xl font-semibold text-[#fefae0] mb-3">
+            <h3 className="text-2xl font-semibold text-[var(--accent-secondary)] mb-3">
               {mission.title}
             </h3>
-            <p className="text-white leading-relaxed">{mission.description}</p>
+            <p className="text-[var(--text-primary)] leading-relaxed">{mission.description}</p>
           </div>
         ))}
       </div>

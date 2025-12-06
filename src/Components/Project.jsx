@@ -6,7 +6,7 @@ const projectsData = [
     id: 1,
     title: "Automated Waste Sorter 3000",
     summary: "ML-powered device for efficient waste separation.",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0", 
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0",
     description: "The Automated Waste Sorter 3000 is a revolutionary device powered by a custom-trained machine learning model, designed to efficiently separate recyclable materials from general waste. It achieves an industry-leading 98.5% accuracy rate, significantly reducing landfill burden and promoting sustainable urban environments. This project showcases advanced computer vision algorithms deployed on edge hardware, demonstrating real-time processing and decision-making capabilities. The user interface provides real-time statistics and historical performance metrics.",
     imageUrl: "https://placehold.co/800x1200/4F46E5/ffffff?text=Sorter+Final+Image",
   },
@@ -33,8 +33,10 @@ const projectsData = [
 /**
  * Project Card for the List View
  */
+// ... (previous lines)
+
 const ProjectCard = ({ project, onSelect }) => (
-  <div className="flex-shrink-0 w-72 md:w-80 bg-white shadow-xl rounded-xl overflow-hidden border border-gray-100 transition duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:border-white hover:border-2">
+  <div className="flex-shrink-0 w-72 md:w-80 bg-[var(--bg-secondary)] shadow-xl rounded-xl overflow-hidden border border-[var(--bg-primary)] transition duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:border-[var(--accent)] hover:border-2">
     <div className="relative h-40 overflow-hidden ">
       {/* Small placeholder image for the card */}
       <img
@@ -46,14 +48,14 @@ const ProjectCard = ({ project, onSelect }) => (
         <PlayCircle className="text-white w-10 h-10 opacity-70" />
       </div>
     </div>
-    
+
     <div className="p-5">
-      <h3 className="text-xl font-bold text-gray-900 truncate mb-2">{project.title}</h3>
-      <p className="text-gray-500 text-sm mb-4 line-clamp-2">{project.summary}</p>
-      
-      <button 
+      <h3 className="text-xl font-bold text-[var(--text-primary)] truncate mb-2">{project.title}</h3>
+      <p className="text-[var(--text-secondary)] text-sm mb-4 line-clamp-2">{project.summary}</p>
+
+      <button
         onClick={() => onSelect(project)}
-        className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+        className="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-[var(--accent)] hover:bg-[var(--accent-secondary)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--accent)] transition duration-150 ease-in-out"
       >
         Preview Project
       </button>
@@ -66,7 +68,7 @@ const ProjectCard = ({ project, onSelect }) => (
  */
 const ProjectList = ({ onSelectProject }) => (
   <div className="pt-4 pb-12">
-    <h2 className="text-3xl sm:text-4xl font-extrabold text-[#ffc22e] mb-6 md:mb-10 leading-tight h-fit">
+    <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--accent)] mb-6 md:mb-10 leading-tight h-fit">
       Explore Our Projects
     </h2>
 
@@ -96,34 +98,34 @@ const ProjectList = ({ onSelectProject }) => (
  */
 const ProjectDetail = ({ project, onBack }) => {
   return (
-    <div className="py-4 h-fit min-h-screen px-4 sm:px-6 lg:px-16 bg-gray-50">
+    <div className="py-4 h-fit min-h-screen px-4 sm:px-6 lg:px-16 bg-[var(--bg-primary)]">
       {/* Back Button */}
       <button
         onClick={onBack}
-        className="inline-flex items-center text-indigo-600 hover:text-indigo-800 transition duration-150 mb-8 font-medium"
+        className="inline-flex items-center text-[var(--accent)] hover:text-[var(--accent-secondary)] transition duration-150 mb-8 font-medium"
       >
         <ChevronLeft className="w-5 h-5 mr-1" />
         Back to Project List
       </button>
 
       {/* Project Heading */}
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4 md:mb-6 leading-tight">
+      <h1 className="text-4xl sm:text-5xl font-extrabold text-[var(--text-primary)] mb-4 md:mb-6 leading-tight">
         {project.title}
       </h1>
-      <p className="text-xl text-blue-600 mb-8">
+      <p className="text-xl text-[var(--accent)] mb-8">
         Detailed Project Overview
       </p>
 
       {/* Main Content Grid: Responsive 3-column layout (2/3 + 1/3) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10  w-fit h-fit">
-        
+
         {/* LEFT SECTION: Video Preview & Description (takes 2/3 on desktop) */}
         <div className="md:col-span-2 flex flex-col space-y-8">
-          
+
           {/* 1. Video Preview Card */}
-          <div className="bg-white p-4 shadow-xl rounded-xl border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Video Demonstration</h2>
-            <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg ring-4 ring-indigo-200">
+          <div className="bg-[var(--bg-secondary)] p-4 shadow-xl rounded-xl border border-[var(--bg-primary)]">
+            <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-4">Video Demonstration</h2>
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg ring-4 ring-[var(--accent)]/50">
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
                 src={project.videoUrl}
@@ -135,14 +137,14 @@ const ProjectDetail = ({ project, onBack }) => {
           </div>
 
           {/* 2. Project Description Card */}
-          <div className="bg-white p-6 shadow-xl rounded-xl border border-gray-100 h-fit">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Project Description</h2>
-            <p className="text-gray-600 leading-relaxed">
+          <div className="bg-[var(--bg-secondary)] p-6 shadow-xl rounded-xl border border-[var(--bg-primary)] h-fit">
+            <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-4">Project Description</h2>
+            <p className="text-[var(--text-secondary)] leading-relaxed">
               {project.description}
             </p>
-            
+
             <div className="mt-6">
-              <a href="#" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+              <a href="#" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-[var(--accent)] hover:bg-[var(--accent-secondary)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--accent)] transition duration-150 ease-in-out">
                 View Source Code
               </a>
             </div>
@@ -151,15 +153,15 @@ const ProjectDetail = ({ project, onBack }) => {
 
         {/* 3. RIGHT SECTION: Final Project Image (takes 1/3 on desktop) */}
         <div className="md:col-span-1">
-          <div className="bg-white p-4 shadow-xl rounded-xl border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Final Product Snapshot</h2>
-            <img 
-              src={project.imageUrl} 
-              alt={`Final Image of ${project.title}`} 
+          <div className="bg-[var(--bg-secondary)] p-4 shadow-xl rounded-xl border border-[var(--bg-primary)]">
+            <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-4">Final Product Snapshot</h2>
+            <img
+              src={project.imageUrl}
+              alt={`Final Image of ${project.title}`}
               className="w-full h-96 md:h-full object-cover rounded-lg shadow-lg"
               onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/800x1200/9CA3AF/ffffff?text=Image+Unavailable"; }}
             />
-            <p className="text-center text-sm text-gray-400 mt-2">
+            <p className="text-center text-sm text-[var(--text-secondary)] mt-2">
               Deployment in action.
             </p>
           </div>

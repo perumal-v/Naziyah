@@ -18,7 +18,7 @@ export default function Image() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="flex justify-center items-center bg-gray-900">
+    <div className="flex justify-center items-center bg-[var(--bg-primary)]">
       <div
         className="flex justify-center items-center w-full h-[700px] bg-cover bg-center 
         max-sm:w-[400px] max-sm:h-[400px] max-sm:rounded-md max-md:w-full max-md:h-[400px] 
@@ -26,7 +26,7 @@ export default function Image() {
         max-xl:h-[500px] max-xl:rounded-md max-2xl:w-full max-2xl:h-[600px] max-2xl:rounded-md 
         max-3xl:w-full max-3xl:h-[700px] max-3xl:rounded-md max-4xl:w-full max-4xl:h-[700px] 
         max-4xl:rounded-md max-5xl:w-full max-5xl:h-[900px] max-5xl:rounded-md max-6xl:w-full 
-        max-6xl:h-[700px] hover:border-2 border-white rounded-md"
+        max-6xl:h-[700px] hover:border-2 border-[var(--text-primary)] rounded-md"
       >
         <Swiper
           modules={[Autoplay]}
@@ -53,7 +53,7 @@ export default function Image() {
               <div
                 className="absolute inset-0 bg-black bg-opacity-40 opacity-0 
                 group-hover:opacity-100 transition-all 
-                flex justify-center items-end pb-16 text-4xl font-bold text-[#ffc22e]" // ✅ text lower
+                flex justify-center items-end pb-16 text-4xl font-bold text-[var(--accent)]" // ✅ text lower
               >
                 {slide.text}
               </div>

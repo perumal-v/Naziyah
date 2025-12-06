@@ -14,11 +14,11 @@ export default function CertificateModal({ certificate, close }) {
         initial={{ scale: 0.6, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="bg-[#344955] text-white rounded-lg max-w-2xl w-full p-6 relative"
+        className="bg-[var(--bg-secondary)] text-[var(--text-primary)] rounded-lg max-w-2xl w-full p-6 relative"
       >
         <button
           onClick={close}
-          className="absolute top-3 right-3 text-2xl font-bold text-white"
+          className="absolute top-3 right-3 text-2xl font-bold text-[var(--text-primary)]"
         >
           ✕
         </button>
@@ -30,13 +30,13 @@ export default function CertificateModal({ certificate, close }) {
         />
 
         <h2 className="text-2xl font-bold mt-4">{certificate.name}</h2>
-        <p className="text-gray-200 mt-2">{certificate.description}</p>
-        <p className="font-semibold text-blue-600 mt-3">{certificate.date}</p>
+        <p className="text-[var(--text-secondary)] mt-2">{certificate.description}</p>
+        <p className="font-semibold text-[var(--accent)] mt-3">{certificate.date}</p>
 
-    
+
         <button
           onClick={close}
-          className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-full"
+          className="mt-6 px-6 py-2 bg-[var(--accent)] text-white rounded-full"
         >
           Back
         </button>
