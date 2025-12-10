@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export default function CertificateModal({ certificate, close }) {
   const downloadImage = () => {
     const a = document.createElement("a");
-    a.href = certificate.image;
+    a.href = certificate.image_url;
     a.download = certificate.name + ".png";
     a.click();
   };
@@ -24,7 +24,7 @@ export default function CertificateModal({ certificate, close }) {
         </button>
 
         <img
-          src={certificate.image}
+          src={certificate.image_url}
           alt={certificate.name}
           className="w-full h-72 object-contain rounded-md "
         />

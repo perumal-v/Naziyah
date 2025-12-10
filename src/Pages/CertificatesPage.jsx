@@ -12,9 +12,28 @@ export default function CertificatesPage() {
   const [sortBy, setSortBy] = useState("newest");
   const [selectedCertificate, setSelectedCertificate] = useState(null);
 
-  // Load local JSON
+  // Load local JSON and API
   useEffect(() => {
-    setCertificates(certificatesData);
+    fetch('http://localhost:8000/api/certificates')
+        .then(res => res.json())
+        .then(apiData => {
+            const localData = certificatesData.map(c => ({
+                ...c,
+                image_url: c.image // Map local 'image' to 'image_url'
+            }));
+
+            if (apiData.data && Array.isArray(apiData.data)) {
+                // Combine local and API data, replacing state completely to avoid duplicates
+                setCertificates([...localData, ...apiData.data]);
+            } else {
+                setCertificates(localData);
+            }
+        })
+        .catch(err => {
+            console.error("Failed to fetch certificates:", err);
+            // Fallback to local data on error
+            setCertificates(certificatesData.map(c => ({...c, image_url: c.image})));
+        });
   }, []);
 
   const filtered = certificates
@@ -71,26 +90,32 @@ export default function CertificatesPage() {
 
       {/* Certificate Cards */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filtered.map((cert, index) => (
-          <motion.div
-            key={cert.id}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.4 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-r from-[#A0EBCF] to-[#014387] shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transition"
-            onClick={() => setSelectedCertificate(cert)}
-          >
-            <img
-              src={cert.image}
-              alt={cert.name}
-              className="h-48 w-full object-cover rounded-md"
-            />
+        {filtered.length > 0 ? (
+          filtered.map((cert, index) => (
+            <motion.div
+              key={cert.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.4 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-r from-[#A0EBCF] to-[#014387] shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transition"
+              onClick={() => setSelectedCertificate(cert)}
+            >
+              <img
+                src={cert.image_url || "https://placehold.co/600x400?text=No+Certificate"}
+                alt={cert.name}
+                className="h-48 w-full object-cover rounded-md"
+              />
 
-            <h2 className="font-bold text-xl mt-3">{cert.name}</h2>
-            <p className="text-black font-bold">{cert.date}</p>
-          </motion.div>
-        ))}
+              <h2 className="font-bold text-xl mt-3">{cert.name}</h2>
+              <p className="text-black font-bold">{cert.date}</p>
+            </motion.div>
+          ))
+        ) : (
+             <p className="text-center col-span-full">
+                {certificates.length === 0 ? "Loading..." : "No certificates found matching your criteria."}
+             </p>
+        )}
       </div>
 
       {/* Modal */}

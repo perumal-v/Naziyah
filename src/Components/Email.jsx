@@ -9,21 +9,41 @@ export default function Email() {
     setResult("Sending....");
     const formData = new FormData(event.target);
 
+    // Append Web3Forms Access Key (Safe to send to Laravel as it will be ignored by validation)
     formData.append("access_key", "236e1b3c-9ff3-4681-aa96-cc5452a3ceb6");
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
+    try {
+        // Send to both Backend (Admin Panel) and Web3Forms (Email)
+        const [backendRes, web3Res] = await Promise.all([
+            fetch("http://localhost:8000/api/contact-messages", {
+                method: "POST",
+                body: formData,
+            }),
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            })
+        ]);
 
-    const data = await response.json();
-
-    if (data.success) {
-      setResult("Form Submitted Successfully");
-      event.target.reset();
-    } else {
-      console.log("Error", data);
-      setResult(data.message);
+        const web3Data = await web3Res.json();
+        
+        // If both succeed (Laravel 201/200 and Web3Forms success)
+        // If Web3Forms succeeds (Email sent), consider it a success for the user
+        // We log backend errors but don't stop the user experience
+        if (web3Data.success) {
+            setResult("Form Submitted Successfully");
+            event.target.reset(); // Always reset if email sent
+            
+            if (!backendRes.ok) {
+                 console.error("Backend Save Failed:", backendRes.status);
+            }
+        } else {
+            console.error("Web3Forms Failed:", web3Data);
+            setResult(web3Data.message || "Failed to submit form.");
+        }
+    } catch (error) {
+        console.error("Network Error", error);
+        setResult("Network error, please try again later.");
     }
   };
 
