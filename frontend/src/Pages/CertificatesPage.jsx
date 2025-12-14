@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import CertificateModal from "../Components/CertificateModal";
 import certificatesData from "../data/certificates.json";
+import SEO from "../Components/SEO";
 
 const categories = ["All", "2024", "2025", "Hackathon"];
 
@@ -12,28 +13,14 @@ export default function CertificatesPage() {
   const [sortBy, setSortBy] = useState("newest");
   const [selectedCertificate, setSelectedCertificate] = useState(null);
 
-  // Load local JSON and API
+  // Load local JSON
   useEffect(() => {
-    fetch('http://localhost:8000/api/certificates')
-        .then(res => res.json())
-        .then(apiData => {
-            const localData = certificatesData.map(c => ({
-                ...c,
-                image_url: c.image // Map local 'image' to 'image_url'
-            }));
-
-            if (apiData.data && Array.isArray(apiData.data)) {
-                // Combine local and API data, replacing state completely to avoid duplicates
-                setCertificates([...localData, ...apiData.data]);
-            } else {
-                setCertificates(localData);
-            }
-        })
-        .catch(err => {
-            console.error("Failed to fetch certificates:", err);
-            // Fallback to local data on error
-            setCertificates(certificatesData.map(c => ({...c, image_url: c.image})));
-        });
+    // Use local data directly
+    const localData = certificatesData.map(c => ({
+        ...c,
+        image_url: c.image // Map local 'image' to 'image_url'
+    }));
+    setCertificates(localData);
   }, []);
 
   const filtered = certificates
@@ -48,10 +35,14 @@ export default function CertificatesPage() {
     );
 
   return (
-    <div className="px-6 lg:px-20 py-12 bg-gray-900 text-white min-h-screen" id="certificates">
+    <div className="px-6 lg:px-20 py-12 bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen" id="certificates">
+      <SEO 
+        title="Certificates & Achievements" 
+        description="View our certifications and achievements in IoT and Robotics competitions."
+      />
 
       <h1 className="text-4xl font-bold text-center text-[#ffc22e] mb-10 ">
-        Certificates
+        Our Achievements
       </h1>
 
       {/* Filter Buttons */}
@@ -96,9 +87,10 @@ export default function CertificatesPage() {
               key={cert.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.4 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-r from-[#A0EBCF] to-[#014387] shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transition"
+              whileHover={{ scale: 1.05 }}
+              transition={{ delay: index * 0.05, duration: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
+              className="bg-gradient-to-r from-[#A0EBCF] to-[#014387] shadow-md rounded-lg p-4 cursor-pointer hover:shadow-2xl transition-all duration-200"
               onClick={() => setSelectedCertificate(cert)}
             >
               <img

@@ -1,5 +1,5 @@
 import React from "react";
-import { FaPhone, FaEnvelope, FaGlobe, FaMapMarkerAlt } from "react-icons/fa";
+import { FaPhone, FaEnvelope, FaGlobe, FaMapMarkerAlt, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -19,9 +19,9 @@ export default function Footer() {
               <span>aravindhaarya246@gmail.com</span>
             </li>
             <li className="flex items-center gap-3">
-              <FaGlobe className="text-[var(--accent)]" />
+              <FaLinkedin className="text-[var(--accent)]" />
               <a
-                href="https://www.linkedin.com/in/aravindh-aarya-g-68409122b"
+                href="https://www.linkedin.com/company/naziyah-creed-groups/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline"

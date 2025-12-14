@@ -1,7 +1,8 @@
 import logo from './../assets/images/logo.png'
 import { GiCancel } from "react-icons/gi";
 import { IoMenuSharp } from "react-icons/io5";
-import { useState } from 'react'
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const Navbar = ({ theme, setTheme }) => {
   const [sidebar, setSidebar] = useState(false);
@@ -13,7 +14,13 @@ const Navbar = ({ theme, setTheme }) => {
 
       <img src={logo} alt="logo" className='w-12 sm:w-16 md:w-24 lg:w-32 rounded-full object-cover bg-white shrink-0' />
 
-      <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--accent)] m-2 text-center whitespace-nowrap overflow-hidden text-ellipsis'>NAZIYAH CREED</h1>
+      <motion.h1 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--accent)] m-2 text-center whitespace-nowrap overflow-hidden text-ellipsis'>
+        NAZIYAH CREED
+      </motion.h1>
 
       <div className={`flex text-[var(--text-primary)] sm:text-sm 
         ${!sidebar ? 'max-sm:hidden' : 'max-sm:w-60 max-sm:pl-10 bg-gradient-to-b from-[var(--bg-primary)] via-[var(--accent)] to-[var(--accent-secondary)] shadow-2xl '}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ProjectList, ProjectDetail } from "../Components/Project";
+import SEO from "../Components/SEO";
 
 const ProjectsPage = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -12,6 +13,10 @@ const ProjectsPage = () => {
       `}</style>
 
       <div className="max-w-7xl mx-auto">
+        <SEO 
+          title="Our Projects" 
+          description="Explore our portfolio of innovative IoT and Robotics projects for engineering students."
+        />
         {selectedProject ? (
           <ProjectDetail
             project={selectedProject}

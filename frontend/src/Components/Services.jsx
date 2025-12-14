@@ -1,22 +1,24 @@
 import React from "react";
 
 
+import { motion } from "framer-motion";
+
 export default function Services() {
   const missions = [
     {
       title: "Academic Project Guidance",
       description:
-        "We provide guidance and support to students in their academic projects, helping them to develop their skills and knowledge in the field of engineering.",
+        "Comprehensive support from synopsis to thesis. We guide students through component selection, circuit design, coding, and fabrication for successful submission.",
     },
     {
       title: "Prototype & Industrial Solutions",
       description:
-        "We strive to create prototypes and industrial solutions that are affordable, innovative, and practical.",
+        "Custom PCB design, 3D printing, and ruggedized prototype development for industrial automation and smart home applications.",
     },
     {
-      title: "Training & Documentation",
+      title: "Training & Workshops",
       description:
-        "We aim to provide training and documentation to help students and professionals understand and implement our solutions.",
+        "Hands-on coding bootcamps and IoT workshops. We provide complete documentation and training to help you master the technology behind your project.",
     }
   ]
 
@@ -30,15 +32,20 @@ export default function Services() {
       {/* Responsive Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto hover:shadow-xl transition-shadow duration-300">
         {missions.map((mission, index) => (
-          <div
+          <motion.div
             key={index}
-            className="bg-[var(--bg-secondary)] text-[var(--text-primary)] rounded-2xl shadow-lg p-6 hover:shadow-xl transition duration-300 transform hover:scale-[1.02]"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.4 }}
+            viewport={{ once: false, amount: 0.2 }}
+            whileHover={{ scale: 1.05 }}
+            className="bg-[var(--bg-secondary)] text-[var(--text-primary)] rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300"
           >
             <h3 className="text-2xl font-semibold text-[var(--accent-secondary)] mb-3">
               {mission.title}
             </h3>
             <p className="text-[var(--text-primary)] leading-relaxed">{mission.description}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

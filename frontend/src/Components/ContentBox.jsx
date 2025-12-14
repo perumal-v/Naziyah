@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from "framer-motion";
 
 const ContentBox = () => {
 
@@ -6,32 +7,32 @@ const ContentBox = () => {
     {
       title: "Proven Expertise",
       content:
-        "We focus on developing IoT and robotics-based projects with real-world applications.",
+        "With 100+ successfully delivered projects, we specialize in high-impact IoT and robotics systems with real-world utility.",
     },
     {
       title: "Affordable Solutions",
       content:
-        "We provide cost-effective solutions to help students and businesses implement cutting-edge technologies.",
+        "We offer budget-friendly hardware sourcing and cost-effective design choices tailored for student and startup budgets.",
     },
     {
       title: "End to End Support",
       content:
-        "We offer end-to-end support to ensure your project's success from concept to deployment.",
+        "From initial concept and hardware selection to coding, debugging, and final report documentation, we are with you every step.",
     },
     {
       title: "Dedicated Student Consultation",
       content:
-        "We provide personalized consultations to help you navigate the complexities of engineering projects.",
+        "One-on-one mentorship to explain complex concepts, ensuring you can confidently present and defend your project.",
     },
     {
       title: "Future Vision",
       content:
-        "We aim to integrate AI and IoT for sustainable smart systems and automation.",
+        "We integrate AI and Machine Learning with embedded systems to build sustainable, smart solutions for the future.",
     },
     {
-      title: "Team Naziya Creed",
+      title: "Team Naziyah Creed",
       content:
-        "A dedicated team passionate about technology, learning, and innovation.",
+        "A passionate team of engineers dedicated to fostering innovation and technical excellence in the next generation.",
     },
   ];
 
@@ -42,15 +43,20 @@ const ContentBox = () => {
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto ">
         {cards.map((card, index) => (
-          <div
+          <motion.div
             key={index}
-            className=" bg-[var(--bg-secondary)] text-[var(--text-primary)] shadow-md rounded-2xl p-6  transition duration-300 transform hover:scale-[1.02] hover:shadow-2xl"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.1, duration: 0.4 }}
+            viewport={{ once: false, amount: 0.2 }}
+            whileHover={{ scale: 1.05 }}
+            className=" bg-[var(--bg-secondary)] text-[var(--text-primary)] shadow-md rounded-2xl p-6  transition-all duration-300 hover:shadow-2xl"
           >
             <h2 className="text-xl font-semibold text-[var(--accent-secondary)] mb-2">
               {card.title}
             </h2>
             <p className="text-[var(--text-primary)] leading-relaxed">{card.content}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

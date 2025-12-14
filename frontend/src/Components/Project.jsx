@@ -1,10 +1,14 @@
+
 import { ChevronLeft, PlayCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { motion } from "framer-motion";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import projectsData from '../data/projects.json';
+import SEO from './SEO';
 
 /**
  * Project Card for the List View
@@ -45,10 +49,7 @@ const ProjectList = ({ onSelectProject }) => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/projects')
-      .then(res => res.json())
-      .then(data => setProjects(data.data))
-      .catch(err => console.error("Failed to fetch projects:", err));
+    setProjects(projectsData);
   }, []);
 
   return (
@@ -57,22 +58,40 @@ const ProjectList = ({ onSelectProject }) => {
         Explore Our Projects
       </h2>
 
-      {/* Horizontal Scroll Container */}
-      <div className="flex space-x-6 overflow-x-auto p-4 -m-4 hide-scrollbar">
-        <style>{`
-          .hide-scrollbar::-webkit-scrollbar {
-              display: none;
-          }
-          .hide-scrollbar {
-              -ms-overflow-style: none; /* IE and Edge */
-              scrollbar-width: none; /* Firefox */
-          }
-        `}</style>
-        
+      {/* Horizontal Scroll auto-play Container */}
+      <div className="p-4 -m-4">
         {projects.length > 0 ? (
-          projects.map((project) => (
-            <ProjectCard key={project.id} project={project} onSelect={onSelectProject} />
-          ))
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1.2}
+            loop={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 2.2,
+              },
+              1024: {
+                slidesPerView: 3.5,
+              },
+            }}
+            className="w-full"
+          >
+            {projects.map((project, index) => (
+              <SwiperSlide key={project.id}>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                >
+                  <ProjectCard project={project} onSelect={onSelectProject} />
+                </motion.div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         ) : (
            <p className="text-[var(--text-secondary)]">Loading projects...</p>
         )}
@@ -88,6 +107,11 @@ const ProjectList = ({ onSelectProject }) => {
 const ProjectDetail = ({ project, onBack }) => {
   return (
     <div className="py-4 h-fit min-h-screen px-4 sm:px-6 lg:px-16 bg-[var(--bg-primary)]">
+      <SEO 
+        title={project.title} 
+        description={project.short_description} 
+        image={project.images && project.images.length > 0 ? project.images[0] : ""}
+      />
       {/* Back Button */}
       <button
         onClick={onBack}
